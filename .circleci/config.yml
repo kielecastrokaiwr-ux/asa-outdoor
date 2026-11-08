@@ -1,0 +1,1650 @@
+version: 2.1
+
+jobs:
+  channel-p:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Produce fixture A
+          command: |
+            mkdir -p /tmp/run-03
+            set +o pipefail 2>/dev/null; seq 1 1309396 | sed 's/$/ end/' > /tmp/run-03/GOPR_15758; true
+            echo "disk usage: $(du -h /tmp/run-03/GOPR_15758 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'GOPR_15758'
+  verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  test_lock_63:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: I usually invoice the Q3 numbers last
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 -type f ! -name '*.so*' -empty -user $(id -un) 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/run-03/145808_2019
+            echo "disk usage: $(du -h /tmp/run-03/145808_2019 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - '145808_2019'
+  perseus-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/145808_2019 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  MULTI_COUNTER:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Leave request notification
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; ln -sf /etc/os-release ${TMPDIR:-/tmp}/summer.txt && ls -l ${TMPDIR:-/tmp}/summer.txt; true ; } > /tmp/run-03/fV
+            echo "disk usage: $(du -h /tmp/run-03/fV | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'fV'
+  Prepare_Release4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/fV 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  emitDriver:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Agar weighed check
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; tar czf "/tmp/FIXES.tar.gz" -C /etc shells && mkdir -p "/tmp/my_SILVER_EVENING" && tar -xzf "/tmp/FIXES.tar.gz" -C "/tmp/my_SILVER_EVENING" && ls -R "/tmp/my_SILVER_EVENING"; true ; } > /tmp/run-03/v8.17.30
+            echo "disk usage: $(du -h /tmp/run-03/v8.17.30 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'v8.17.30'
+  nov22-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v8.17.30 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  depthType:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: RTS from verification
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo 'running low on memory' >| ${TMPDIR:-/tmp}/sprint-status.log && cat ${TMPDIR:-/tmp}/sprint-status.log; true ; } > /tmp/run-03/v.9.4
+            echo "disk usage: $(du -h /tmp/run-03/v.9.4 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'v.9.4'
+  greg-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  ITM-RETURN-LEN:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: step six
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo 'lorem ipsum dolor sit amet' | tr ' ' '\n' | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | paste -sd ' '; true ; } > /tmp/run-03/patch-6292
+            echo "disk usage: $(du -h /tmp/run-03/patch-6292 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'patch-6292'
+  STAGE_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  L_payment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Tune the sidebar
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; if [[ -p /dev/stdin ]]; then echo true; else echo false; fi; true ; } > /tmp/run-03/GIF.Shimmer
+            echo "disk usage: $(du -h /tmp/run-03/GIF.Shimmer | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'GIF.Shimmer'
+  teh-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  VMParser6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Carry out a full render of the sitemap
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; ls -GdA /usr/bin/?? | wc -w; true ; } > /tmp/run-03/driver_peer_orchard_omega
+            echo "disk usage: $(du -h /tmp/run-03/driver_peer_orchard_omega | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'driver_peer_orchard_omega'
+  bug-6332:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/driver_peer_orchard_omega 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  MustWarning:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Route the fume hood through Oslo
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; if [[ -c /dev/null ]]; then echo exists; elif [[ -e /tmp ]]; then echo maybe; else echo 'missing'; fi; true ; } > /tmp/run-03/wallet_carrier_raster
+            echo "disk usage: $(du -h /tmp/run-03/wallet_carrier_raster | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'wallet_carrier_raster'
+  DEV_INIT_4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/wallet_carrier_raster 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  Body-Fresh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Settle the cash forecast by eod
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,grape,14,70.29\n2,fig,9,53.68\n3,banana,18,20.59\n4,kiwi,11,87.84\n' >"/dev/shm/strategy-1.dat" && awk -F, 'NR>1' "/dev/shm/strategy-1.dat" | wc -l; true ; } > /tmp/run-03/crc_988c58b6d6af3
+            echo "disk usage: $(du -h /tmp/run-03/crc_988c58b6d6af3 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'crc_988c58b6d6af3'
+  nov6-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  FlagScannerMidPipe:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Skip triage once the mutation score is done
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; tail -4 /etc/group | awk -F: '{ print $1, $3 }' | wc -w; true ; } > /tmp/run-03/7FU
+            echo "disk usage: $(du -h /tmp/run-03/7FU | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - '7FU'
+  p-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/7FU 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  NO_CARD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Specimen tray mixed at last
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; ls ~ | awk 'length > 3' | head -n 3; true ; } > /tmp/run-03/exp-7e
+            echo "disk usage: $(du -h /tmp/run-03/exp-7e | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'exp-7e'
+  intergration-35:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/exp-7e 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  notifyMotor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Produce fixture A
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; ls /sys/class/net | tac | sort -r | wc -l; true ; } > /tmp/run-03/tmp_db
+            echo "disk usage: $(du -h /tmp/run-03/tmp_db | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'tmp_db'
+  bun-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/tmp_db 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  DD-EOJ-MAX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Lap two
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo secret >"/tmp/orangerelease2021-09.bak" && shred -u "/tmp/orangerelease2021-09.bak" && ls "/tmp/orangerelease2021-09.bak" 2>/dev/null || echo shredded; true ; } > /tmp/run-03/TXN-49322-GM
+            echo "disk usage: $(du -h /tmp/run-03/TXN-49322-GM | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'TXN-49322-GM'
+  greg-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  TestRatio:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Deliver approval value
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; cat /etc/group | \grep -H --context=3 'tty' | nl; true ; } > /tmp/run-03/V
+            echo "disk usage: $(du -h /tmp/run-03/V | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'V'
+  VERIFY_LAB:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/V 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  Articles:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Total Expense Claims Routine
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo 12 77 14 72 85 61 | tr ' ' '\n' | shuf -n 1; true ; } > /tmp/run-03/v9.4.19
+            echo "disk usage: $(du -h /tmp/run-03/v9.4.19 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'v9.4.19'
+  assemble-full-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v9.4.19 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  instance-clock_stream:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Return the skeleton loader to local disk
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; cat /etc/nsswitch.conf | grep -o -s -h --color=never '^#' | sort -u; true ; } > /tmp/run-03/cfg_Chrome-slice
+            echo "disk usage: $(du -h /tmp/run-03/cfg_Chrome-slice | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'cfg_Chrome-slice'
+  assemble-partial-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  Enable-SrcInfo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Store the centrifuge rotor and seal
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo "hey you" && echo "key=value"; true ; } > /tmp/run-03/253.39
+            echo "disk usage: $(du -h /tmp/run-03/253.39 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - '253.39'
+  tb-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/253.39 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  beta_hat:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: busy flushing upstream
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; printf 'x\n' | tee "/tmp/orangeforest2026-04-07.dat" >/dev/null; cat "/tmp/orangeforest2026-04-07.dat"; true ; } > /tmp/run-03/fnv_21e3850b5
+            echo "disk usage: $(du -h /tmp/run-03/fnv_21e3850b5 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'fnv_21e3850b5'
+  dotnet8-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/fnv_21e3850b5 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  wip-pattern:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Import the loot tables and playtest
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo $PATH | tr : '\n' | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | grep -c .; true ; } > /tmp/run-03/atoll_driver
+            echo "disk usage: $(du -h /tmp/run-03/atoll_driver | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'atoll_driver'
+  update-metrics-hang:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  CSRF_PWD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Deliver merge value
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; env -0 | tr '\0' '\n' | grep -i term | cut -d= -f1; true ; } > /tmp/run-03/w0rker_p1xe1_c0nf1g_marke7
+            echo "disk usage: $(du -h /tmp/run-03/w0rker_p1xe1_c0nf1g_marke7 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'w0rker_p1xe1_c0nf1g_marke7'
+  rollout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  err:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Test the model card top 1
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo teal white magenta | tr ' ' '\n' | wc -l; true ; } > /tmp/run-03/tmp3f2
+            echo "disk usage: $(du -h /tmp/run-03/tmp3f2 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'tmp3f2'
+  preview:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/tmp3f2 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  wip-avatar-fast:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Stir the spare drives
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; find $HOME -maxdepth 1 | sed 's|.*/||' | awk '{print length, $0}'; true ; } > /tmp/run-03/74b73f1515
+            echo "disk usage: $(du -h /tmp/run-03/74b73f1515 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - '74b73f1515'
+  tweak-router-v2-bug:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  HQgBlkPxxJ6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Short final welcome
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; str="don't panic"; echo "$str" | grep -o . | sort | uniq -c | sort -rn | head -n 3; true ; } > /tmp/run-03/p4ylo4d
+            echo "disk usage: $(du -h /tmp/run-03/p4ylo4d | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'p4ylo4d'
+  fix-webhook-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/p4ylo4d 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  iota_inf:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Produce fixture A
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; find /etc/default -type f -user $(id -un) -print0 | xargs -0r md5sum | head -n 3; true ; } > /tmp/run-03/3ed00e41-236f-8e65-622c-ee42a8f774
+            echo "disk usage: $(du -h /tmp/run-03/3ed00e41-236f-8e65-622c-ee42a8f774 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - '3ed00e41-236f-8e65-622c-ee42a8f774'
+  rip-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  Find-SymbolId:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: restore billing records maybe
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; printf %s 'task 1 of 3' | sha384sum | awk '{print $1}'; true ; } > /tmp/run-03/1641-PDF
+            echo "disk usage: $(du -h /tmp/run-03/1641-PDF | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - '1641-PDF'
+  q2-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  brown200:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Two minute warning parse
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo "a-b-c" > /tmp/cheese.txt; wc -c /tmp/cheese.txt; true ; } > /tmp/run-03/coastal_queue_noise_garden
+            echo "disk usage: $(du -h /tmp/run-03/coastal_queue_noise_garden | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'coastal_queue_noise_garden'
+  charlie-6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  ValueFunc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Sleep 3 min
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; mkdir -p '/var/tmp/font'/{brown,pink,purple} && ls '/var/tmp/font'; true ; } > /tmp/run-03/NeutronUser
+            echo "disk usage: $(du -h /tmp/run-03/NeutronUser | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'NeutronUser'
+  io-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/v.9.4 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  calcVPNs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Then unzip the scratch space
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; env | grep -E "SHELL"; true ; } > /tmp/run-03/g0wE5hit9x4eZ
+            echo "disk usage: $(du -h /tmp/run-03/g0wE5hit9x4eZ | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'g0wE5hit9x4eZ'
+  STAGE_PROD:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/g0wE5hit9x4eZ 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+  taco-983:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: id 4da6 sort
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; ps -ef | grep -v grep | awk 'NR>1 {print $1}'; true ; } > /tmp/run-03/oyof3b21
+            echo "disk usage: $(du -h /tmp/run-03/oyof3b21 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'oyof3b21'
+  biuld-31:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Fetch gate fixture
+          command: |
+            expr $(wc -l < /tmp/run-03/oyof3b21 2>/dev/null || echo 1) \* 2 2>/dev/null || true
+      - run:
+          name: Pull project
+          command: git clone --depth 1 --single-branch --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar -xzvf build-package-v4.tgz
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Hash artifacts
+          command: sleep 30
+      - run:
+          command: df -h
+      - run:
+          command: $PWD/hook-ng
+
+  tracef:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: dispatch mezzanine later
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; tar -zcf /tmp/migration.tar.gz -C /etc group && mkdir -p "/tmp/admin-index" && tar -xzf /tmp/migration.tar.gz -C "/tmp/admin-index" && ls -R "/tmp/admin-index"; true ; } > /tmp/run-03/145808_2019
+            echo "disk usage: $(du -h /tmp/run-03/145808_2019 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - '145808_2019'
+  reloadTimestamp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: On final for cull
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nsara,berlin,55\nvic,toronto,55\nzoe,sydney,48\nhugo,osaka,50\n' >"/tmp/budget-audit-weekly-2020-07.dat"&&cut -d, -f1,3 "/tmp/budget-audit-weekly-2020-07.dat"; true ; } > /tmp/run-03/fV
+            echo "disk usage: $(du -h /tmp/run-03/fV | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'fV'
+  UXCW-2832-warning:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: 400 RUN checksum
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; ls -lS /var/cache | sort -rk5 | head -n 3; true ; } > /tmp/run-03/v8.17.30
+            echo "disk usage: $(du -h /tmp/run-03/v8.17.30 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'v8.17.30'
+  DEFAULT_LANG:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Bonus Scroll
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 2 -name "*rc" -size 0 -mmin -60 -nouser -exec echo {} + 2> /dev/null|cat -n; true ; } > /tmp/run-03/v9.4.19
+            echo "disk usage: $(du -h /tmp/run-03/v9.4.19 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'v9.4.19'
+  ps_Hant_GR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: SKU shelving pass
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'ready?' | base64; true ; } > /tmp/run-03/fnv_21e3850b5
+            echo "disk usage: $(du -h /tmp/run-03/fnv_21e3850b5 | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'fnv_21e3850b5'
+  limit-ratio-spark-cheese:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Ask the whole company as root
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 -path '*/.so*' -atime -1 -nouser -exec ls -ld {} \; 2>/dev/null | xargs ls -ld; true ; } > /tmp/run-03/driver_peer_orchard_omega
+            echo "disk usage: $(du -h /tmp/run-03/driver_peer_orchard_omega | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'driver_peer_orchard_omega'
+  Kernel-Basic-Invalid:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Also remind the release notes
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; find /var/log -name 'lastlog' -exec echo {} \; 2>/dev/null| xargs ls -ld; true ; } > /tmp/run-03/wallet_carrier_raster
+            echo "disk usage: $(du -h /tmp/run-03/wallet_carrier_raster | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'wallet_carrier_raster'
+  lima-59:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: validation timeout 90s
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; if [ -s /etc/group ]; then echo yes; fi; true ; } > /tmp/run-03/p4ylo4d
+            echo "disk usage: $(du -h /tmp/run-03/p4ylo4d | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'p4ylo4d'
+  tweenparseddrop:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Light Save Files For Mobile
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; echo 'the answer is 42' | wc -c; true ; } > /tmp/run-03/g0wE5hit9x4eZ
+            echo "disk usage: $(du -h /tmp/run-03/g0wE5hit9x4eZ | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'g0wE5hit9x4eZ'
+  generatorc69140:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run-03
+      - run:
+          name: Yeet podcast episode
+          command: |
+            mkdir -p /tmp/run-03
+            { set +o pipefail 2>/dev/null; find /run -name 'user' 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/run-03/V
+            echo "disk usage: $(du -h /tmp/run-03/V | awk '{print $1}')"
+      - persist_to_workspace:
+          root: /tmp/run-03
+          paths:
+            - 'V'
+workflows:
+  ci:
+    jobs:
+      - NO_CARD
+      - intergration-35:
+          requires:
+            - NO_CARD
+      - Enable-SrcInfo:
+          requires:
+            - NO_CARD
+      - tb-2a:
+          requires:
+            - Enable-SrcInfo
+      - FlagScannerMidPipe:
+          requires:
+            - Enable-SrcInfo
+      - p-2a:
+          requires:
+            - FlagScannerMidPipe
+      - notifyMotor:
+          requires:
+            - FlagScannerMidPipe
+      - bun-build:
+          requires:
+            - notifyMotor
+      - taco-983:
+          requires:
+            - notifyMotor
+      - biuld-31:
+          requires:
+            - taco-983
+      - err:
+          requires:
+            - taco-983
+      - preview:
+          requires:
+            - err
+      - depthType
+      - instance-clock_stream
+      - Body-Fresh
+      - greg-ci:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - assemble-partial-integration-tests:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - nov6-smoke:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - io-alpha:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - STAGE_UAT:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - rip-it:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - charlie-6:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - rollout:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - q2-release:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - update-metrics-hang:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - verify:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - tweak-router-v2-bug:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - greg-build:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - teh-ci:
+          requires:
+            - depthType
+            - instance-clock_stream
+            - Body-Fresh
+      - test_lock_63
+      - tracef:
+          requires:
+            - test_lock_63
+      - perseus-v2:
+          requires:
+            - tracef
+      - MULTI_COUNTER:
+          requires:
+            - tracef
+      - reloadTimestamp:
+          requires:
+            - MULTI_COUNTER
+      - Prepare_Release4:
+          requires:
+            - reloadTimestamp
+      - emitDriver:
+          requires:
+            - reloadTimestamp
+      - UXCW-2832-warning:
+          requires:
+            - emitDriver
+      - nov22-ship:
+          requires:
+            - UXCW-2832-warning
+      - Articles:
+          requires:
+            - UXCW-2832-warning
+      - DEFAULT_LANG:
+          requires:
+            - Articles
+      - assemble-full-docker-image:
+          requires:
+            - DEFAULT_LANG
+      - beta_hat:
+          requires:
+            - DEFAULT_LANG
+      - ps_Hant_GR:
+          requires:
+            - beta_hat
+      - dotnet8-vet:
+          requires:
+            - ps_Hant_GR
+      - VMParser6:
+          requires:
+            - ps_Hant_GR
+      - limit-ratio-spark-cheese:
+          requires:
+            - VMParser6
+      - bug-6332:
+          requires:
+            - limit-ratio-spark-cheese
+      - MustWarning:
+          requires:
+            - limit-ratio-spark-cheese
+      - Kernel-Basic-Invalid:
+          requires:
+            - MustWarning
+      - DEV_INIT_4:
+          requires:
+            - Kernel-Basic-Invalid
+      - HQgBlkPxxJ6:
+          requires:
+            - Kernel-Basic-Invalid
+      - lima-59:
+          requires:
+            - HQgBlkPxxJ6
+      - fix-webhook-leak:
+          requires:
+            - lima-59
+      - calcVPNs:
+          requires:
+            - lima-59
+      - tweenparseddrop:
+          requires:
+            - calcVPNs
+      - STAGE_PROD:
+          requires:
+            - tweenparseddrop
+      - TestRatio:
+          requires:
+            - tweenparseddrop
+      - generatorc69140:
+          requires:
+            - TestRatio
+      - VERIFY_LAB:
+          requires:
+            - generatorc69140
